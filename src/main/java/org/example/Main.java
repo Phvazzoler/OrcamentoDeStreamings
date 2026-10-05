@@ -17,5 +17,20 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        AssinaturaDAO dao = new AssinaturaDAO();
+        try {
+//            dao.inserir(new Assinatura("HBO Max", 34.90, "MENSAL", 8, 1));
+            double total = 0;
+            for (Assinatura a : dao.listar()) {
+                System.out.println(a.getNome() + " - " + a.getValorMensal());
+                if (a.isAtiva()) {
+                    total += a.getValorMensal();
+                }
+            }
+            System.out.printf("Total mensal: %.2f%n", total);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

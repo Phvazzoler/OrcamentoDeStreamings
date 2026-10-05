@@ -18,7 +18,7 @@ public class Assinatura {
         this.ativa = true;
     }
     public double getValorMensal() {
-        return cicloCobranca.equals("Anual") ? valor / 12 : valor;
+        return cicloCobranca.equalsIgnoreCase("Anual") ? valor / 12 : valor;
     }
     public String getNome() {
         return nome;
@@ -74,4 +74,5 @@ public class Assinatura {
     public void setCategoriaId(int categoriaId) {
         this.categoriaId = categoriaId;
     }
+
 }
