@@ -49,5 +49,24 @@ public class AssinaturaDAO {
             ps.executeUpdate();
         }
     }
+    public void desativar(int id) throws SQLException {
+        String sql = "UPDATE assinaturas SET ativa = FALSE WHERE id = ?";
+
+        try (Connection c = Conexao.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    public void deletar(int id) throws SQLException {
+        String sql = "DELETE FROM assinaturas WHERE id = ?";
+
+        try (Connection c = Conexao.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
 
 }
