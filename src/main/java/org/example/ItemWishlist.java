@@ -9,7 +9,6 @@ public class ItemWishlist {
     private String link;
     private int categoriaId;
 
-
     public ItemWishlist(String nome, double preco, String prioridade, int categoriaId) {
         this.nome = nome;
         this.preco = preco;
@@ -21,12 +20,6 @@ public class ItemWishlist {
     public void marcarComoComprado() {
         this.comprado = true;
     }
-    public String getNome(){
-        return nome;
-    }
-    public double getPreco(){
-        return preco;
-    }
 
     public int getId() {
         return id;
@@ -36,8 +29,16 @@ public class ItemWishlist {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
     }
 
     public void setPreco(double preco) {
@@ -50,6 +51,10 @@ public class ItemWishlist {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public boolean isComprado() {
+        return comprado;
     }
 
     public void setComprado(boolean comprado) {
@@ -71,10 +76,4 @@ public class ItemWishlist {
     public void setCategoriaId(int categoriaId) {
         this.categoriaId = categoriaId;
     }
-
-    public boolean isComprado() {
-        return comprado;
-    }
-
 }
-

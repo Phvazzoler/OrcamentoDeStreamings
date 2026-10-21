@@ -1,7 +1,7 @@
 package org.example;
 
 public class Assinatura {
-    private int id ;
+    private int id;
     private String nome;
     private double valor;
     private String cicloCobranca;
@@ -17,13 +17,12 @@ public class Assinatura {
         this.categoriaId = categoriaId;
         this.ativa = true;
     }
+
+    // se for anual, divide por 12 pra virar valor mensal
     public double getValorMensal() {
-        return cicloCobranca.equalsIgnoreCase("Anual") ? valor / 12 : valor;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public double getValor(){
+        if (cicloCobranca.equalsIgnoreCase("ANUAL")) {
+            return valor / 12;
+        }
         return valor;
     }
 
@@ -35,8 +34,16 @@ public class Assinatura {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public double getValor() {
+        return valor;
     }
 
     public void setValor(double valor) {
@@ -74,5 +81,4 @@ public class Assinatura {
     public void setCategoriaId(int categoriaId) {
         this.categoriaId = categoriaId;
     }
-
 }
