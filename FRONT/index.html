@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Orçamento Geek</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <h1>Orçamento Geek</h1>
+    <div class="saldo">
+      <small>SALDO</small>
+      <strong id="saldo">R$ 0,00</strong>
+    </div>
+  </header>
+
+  <nav class="abas">
+    <button id="abaAssinaturas" class="ativa" onclick="mostrarAba('assinaturas')">ASSINATURAS</button>
+    <button id="abaDesejos" onclick="mostrarAba('desejos')">DESEJOS</button>
+  </nav>
+
+  <main class="conteudo">
+
+    <p id="alerta" class="alerta" hidden></p>
+
+    <section id="telaAssinaturas">
+      <div class="duas-colunas">
+        <div class="cartao grafico">
+          <p class="legenda">Gasto mensal (limite: <span id="limite">R$ 0,00</span>)</p>
+          <div class="rosca" id="rosca">
+            <div class="centro" id="gasto">R$ 0,00</div>
+          </div>
+          <button class="mais" onclick="mostrarFormulario('formAssinatura')">+</button>
+        </div>
+
+        <div class="cartao">
+          <h2>Por categoria</h2>
+          <ul class="lista" id="listaCategorias"></ul>
+        </div>
+      </div>
+
+      <div class="cartao">
+        <h2>Minhas assinaturas</h2>
+        <table>
+          <thead>
+            <tr><th>Nome</th><th>Categoria</th><th>Cobrança</th><th>Mensal</th><th></th></tr>
+          </thead>
+          <tbody id="linhasAssinaturas"></tbody>
+        </table>
+
+        <form class="formulario" id="formAssinatura" hidden>
+          <input id="nome" placeholder="Nome" required>
+          <input id="valor" type="number" step="0.01" placeholder="Valor" required>
+          <select id="ciclo">
+            <option value="MENSAL">Mensal</option>
+            <option value="ANUAL">Anual</option>
+          </select>
+          <input id="dia" type="number" min="1" max="31" placeholder="Dia" required>
+          <select id="categoria"></select>
+          <button class="botao" type="submit">Adicionar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="telaDesejos" hidden>
+      <div class="cartao">
+        <div class="titulo-cartao">
+          <h2>Lista de desejos (total: <span id="totalDesejos">R$ 0,00</span>)</h2>
+          <button class="mais" onclick="mostrarFormulario('formDesejo')">+</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Categoria</th><th>Prioridade</th><th>Preço</th><th></th></tr>
+          </thead>
+          <tbody id="linhasDesejos"></tbody>
+        </table>
+
+        <form class="formulario" id="formDesejo" hidden>
+          <input id="nomeDesejo" placeholder="Nome" required>
+          <input id="precoDesejo" type="number" step="0.01" placeholder="Preço" required>
+          <select id="prioridadeDesejo">
+            <option value="ALTA">Alta</option>
+            <option value="MEDIA">Média</option>
+            <option value="BAIXA">Baixa</option>
+          </select>
+          <select id="categoriaDesejo"></select>
+          <button class="botao" type="submit">Adicionar</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="JS/script.js"></script>
+</body>
+</html>
