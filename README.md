@@ -1,7 +1,7 @@
 # Orçamento Geek
 
-![Print da página](/FRONT/IMG-FRONT1.png)
-![Print da página](/FRONT/IMG-FRONT2.png)
+![Print da página](/FRONT/PrintPag/IMG-FRONT1.png)
+![Print da página](/FRONT/PrintPag/IMG-FRONT2.png)
 
 Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game Pass, Spotify...) e uma lista de desejos de jogos, filmes e colecionáveis. A página mostra o gasto mensal e avisa quando ele passa do limite que eu defini.
 
@@ -24,17 +24,33 @@ Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game 
 
 ```
 OrcamentoDeStreamings/
-  banco/
-    script.sql          criação das tabelas e dados de exemplo
-  src/main/java/org/example/
-    Assinatura, ItemWishlist, Categoria      classes do modelo
-    AssinaturaDAO, ItemWishlistDAO,
-    CategoriaDAO, LimiteDAO                  acesso ao banco (JDBC)
-    Conexao                                  conexão com o MySQL
-    Servidor                                 servidor HTTP que devolve JSON
-  web/
-    index.html, estilo.css, app.js           página do projeto
-  pom.xml
+│
+├── banco/
+│   └── script.sql                 
+│
+├── src/
+│   └── main/
+│       └── java/
+│           └── org/
+│               └── example/
+│                   ├── Assinatura.java          # Modelo de assinatura
+│                   ├── ItemWishlist.java        # Modelo de item da wishlist
+│                   ├── Categoria.java           # Modelo de categoria
+│                   │
+│                   ├── AssinaturaDAO.java       # Acesso ao banco (JDBC)
+│                   ├── ItemWishlistDAO.java     # Acesso ao banco (JDBC)
+│                   ├── CategoriaDAO.java        # Acesso ao banco (JDBC)
+│                   ├── LimiteDAO.java           # Acesso ao banco (JDBC)
+│                   │
+│                   ├── Conexao.java              # Conexão com o MySQL
+│                   └── Servidor.java             # Servidor HTTP que retorna JSON
+│
+├── web/
+│   ├── index.html                 # Estrutura da página
+│   ├── estilo.css                 # Estilização da página
+│   └── app.js                     # Funcionalidades do frontend
+│
+└── pom.xml                        # Configurações e dependências do Maven
 ```
 
 ## Como rodar
