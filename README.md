@@ -1,13 +1,16 @@
 
 # Orçamento Streamings
 
+Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game Pass, Spotify...) e uma lista de desejos de jogos, filmes e colecionáveis. A página mostra o gasto mensal e avisa quando ele passa do limite que eu defini.
+
+
 ![Print da página](./FRONT/PrintPag/Print_2.png)
 
 ![Print da página](./FRONT/PrintPag/Print_1.png)
 
 ![Print da página](./FRONT/PrintPag/Print_3.png)
 
-Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game Pass, Spotify...) e uma lista de desejos de jogos, filmes e colecionáveis. A página mostra o gasto mensal e avisa quando ele passa do limite que eu defini.
+
 
 ## Funcionalidades
 
