@@ -13,7 +13,7 @@ function nomeDaCategoria(categorias, id) {
   return "-";
 }
 
-// troca entre as abas Assinaturas e Desejos
+
 function mostrarAba(nome) {
   const assinaturas = nome === "assinaturas";
   document.getElementById("telaAssinaturas").hidden = !assinaturas;
@@ -22,7 +22,7 @@ function mostrarAba(nome) {
   document.getElementById("abaDesejos").className = assinaturas ? "" : "ativa";
 }
 
-// abre e fecha o formulário do botão +
+
 function mostrarFormulario(id) {
   const formulario = document.getElementById(id);
   formulario.hidden = !formulario.hidden;
@@ -49,7 +49,7 @@ function carregar() {
         alerta.hidden = true;
       }
 
-      // opções dos selects de categoria
+      
       let opcoes = "";
       for (let i = 0; i < dados.categorias.length; i++) {
         opcoes += "<option value='" + dados.categorias[i].id + "'>" +
@@ -58,7 +58,7 @@ function carregar() {
       document.getElementById("categoria").innerHTML = opcoes;
       document.getElementById("categoriaDesejo").innerHTML = opcoes;
 
-      // soma de cada categoria, para a lista e para a rosca
+      
       let listaCategorias = "";
       let fatias = [];
       let inicio = 0;
@@ -100,7 +100,7 @@ function carregar() {
         rosca.style.background = "#dddddd";
       }
 
-      // tabela de assinaturas
+      
       let linhasAssinaturas = "";
       for (let i = 0; i < dados.assinaturas.length; i++) {
         const a = dados.assinaturas[i];
@@ -115,7 +115,7 @@ function carregar() {
       }
       document.getElementById("linhasAssinaturas").innerHTML = linhasAssinaturas;
 
-      // tabela da lista de desejos
+      
       let linhasDesejos = "";
       let totalDesejos = 0;
       for (let i = 0; i < dados.wishlist.length; i++) {
