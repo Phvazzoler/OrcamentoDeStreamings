@@ -1,7 +1,11 @@
-# Orçamento Geek
 
-![Print da página](/FRONT/PrintPag/IMG-FRONT1.png)
-![Print da página](/FRONT/PrintPag/IMG-FRONT2.png)
+# Orçamento Streamings
+
+![Print da página](./FRONT/PrintPag/Print_2.png)
+
+![Print da página](./FRONT/PrintPag/Print_1.png)
+
+![Print da página](./FRONT/PrintPag/Print_3.png)
 
 Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game Pass, Spotify...) e uma lista de desejos de jogos, filmes e colecionáveis. A página mostra o gasto mensal e avisa quando ele passa do limite que eu defini.
 
@@ -22,11 +26,11 @@ Projeto para controlar os gastos com entretenimento: assinaturas (Netflix, Game 
 
 ## Estrutura do projeto
 
-```
+```text
 OrcamentoDeStreamings/
 │
 ├── banco/
-│   └── script.sql                 
+│   └── script.sql
 │
 ├── src/
 │   └── main/
@@ -43,28 +47,50 @@ OrcamentoDeStreamings/
 │                   ├── LimiteDAO.java           # Acesso ao banco (JDBC)
 │                   │
 │                   ├── Conexao.java              # Conexão com o MySQL
-│                   └── Servidor.java             # Servidor HTTP que retorna JSON
+│                   └── Servidor.java             # Servidor HTTP, frontend e API
 │
-├── web/
+├── FRONT/
 │   ├── index.html                 # Estrutura da página
-│   ├── estilo.css                 # Estilização da página
-│   └── app.js                     # Funcionalidades do frontend
+│   ├── CSS/
+│   │   └── style.css              # Estilização da página
+│   ├── JS/
+│   │   └── script.js              # Funcionalidades do frontend
+│   └── PrintPag/                  # Imagens do projeto
 │
 └── pom.xml                        # Configurações e dependências do Maven
 ```
 
 ## Como rodar
 
-Você precisa de: JDK (o projeto foi feito com o JDK 26), MySQL e a extensão Live Server do VS Code.
+Você precisa de: JDK 26, MySQL, MySQL Workbench e IntelliJ IDEA Community.
 
 1. Clone o repositório:
+
+```bash
+git clone https://github.com/Phvazzoler/OrcamentoDeStreamings.git
 ```
-   git clone https://github.com/Phvazzoler/OrcamentoDeStreamings.git
-```
+
 2. No MySQL Workbench, abra e execute o arquivo `banco/script.sql`. Ele cria o banco `orcamento_streamings`.
+
 3. Defina a variável de ambiente `DB_SENHA` com a senha do seu MySQL. No IntelliJ: **Run > Edit Configurations > Environment variables** e escreva `DB_SENHA=sua_senha`.
-4. Rode o `main` da classe `Servidor`. Ele sobe na porta 8080.
-5. Abra o `web/index.html` com o Live Server.
+
+4. Na configuração de execução da classe `Servidor`, defina o campo **Working directory** como `$PROJECT_DIR$`.
+
+5. Rode o `main` da classe `Servidor`. Ele inicia o servidor na porta 8080.
+
+6. Abra o navegador e acesse:
+
+```text
+http://localhost:8080/
+```
+
+A página será carregada diretamente pelo servidor Java, sem precisar do Live Server do VS Code.
+
+A API também pode ser acessada pelo endereço:
+
+```text
+http://localhost:8080/api/resumo
+```
 
 A senha do banco não fica escrita no código, por isso a variável de ambiente.
 
@@ -72,6 +98,7 @@ A senha do banco não fica escrita no código, por isso a variável de ambiente.
 
 | Método | Rota | O que faz |
 |---|---|---|
+| GET | `/` | Abre a página principal do sistema |
 | GET | `/api/resumo` | Devolve limite, gasto, categorias, assinaturas e desejos em JSON |
 | POST | `/api/assinaturas` | Adiciona uma assinatura |
 | POST | `/api/desativar?id=` | Remove (desativa) uma assinatura |
@@ -83,7 +110,9 @@ A senha do banco não fica escrita no código, por isso a variável de ambiente.
 - Modelagem de banco de dados com chaves primárias e estrangeiras
 - CRUD com JDBC e o padrão DAO
 - Servidor HTTP simples em Java
+- Criação de rotas para disponibilizar o frontend e a API
 - Consumo da API com `fetch` no JavaScript
+- Integração entre Java, MySQL e frontend
 - Guardar senha fora do código
 
 ## Ideias para depois
