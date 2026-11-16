@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ItemWishlistDAO {
 
-    // só os itens que ainda não foram comprados, prioridade ALTA primeiro
+
     public List<ItemWishlist> listarPendentes() throws SQLException {
         List<ItemWishlist> lista = new ArrayList<>();
         String sql = "SELECT * FROM wishlist_itens "

@@ -18,7 +18,7 @@ public class Assinatura {
         this.ativa = true;
     }
 
-    // se for anual, divide por 12 pra virar valor mensal
+
     public double getValorMensal() {
         if (cicloCobranca.equalsIgnoreCase("ANUAL")) {
             return valor / 12;

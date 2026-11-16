@@ -11,15 +11,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Servidor {
 
-    // evita que aspas no nome quebrem o JSON
+
     static String escapar(String texto) {
         return texto.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
-    // adiciona um item na lista, separando por vírgula
+
     static void juntar(StringBuilder lista, String item) {
         if (lista.length() > 0) {
             lista.append(",");
@@ -27,7 +29,7 @@ public class Servidor {
         lista.append(item);
     }
 
-    // transforma "nome=HBO&valor=34.90" em um mapa
+
     static Map<String, String> parametros(String consulta) {
         Map<String, String> mapa = new HashMap<>();
         if (consulta == null) {
@@ -43,7 +45,7 @@ public class Servidor {
         return mapa;
     }
 
-    // resposta sem corpo, só com o código (200 deu certo, 400 deu erro...)
+
     static void responder(HttpExchange requisicao, int codigo) throws IOException {
         requisicao.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         requisicao.sendResponseHeaders(codigo, -1);
@@ -52,7 +54,7 @@ public class Servidor {
     public static void main(String[] args) throws Exception {
         HttpServer servidor = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        // devolve tudo que a página precisa
+
         servidor.createContext("/api/resumo", requisicao -> {
             try {
                 double total = 0;
@@ -102,7 +104,7 @@ public class Servidor {
             }
         });
 
-        // adiciona uma assinatura
+
         servidor.createContext("/api/assinaturas", requisicao -> {
             try {
                 if (!requisicao.getRequestMethod().equals("POST")) {
@@ -124,7 +126,7 @@ public class Servidor {
             }
         });
 
-        // remove (desativa) uma assinatura
+
         servidor.createContext("/api/desativar", requisicao -> {
             try {
                 if (!requisicao.getRequestMethod().equals("POST")) {
@@ -140,7 +142,7 @@ public class Servidor {
             }
         });
 
-        // adiciona um item na lista de desejos
+
         servidor.createContext("/api/wishlist", requisicao -> {
             try {
                 if (!requisicao.getRequestMethod().equals("POST")) {
@@ -161,7 +163,7 @@ public class Servidor {
             }
         });
 
-        // marca um item da lista de desejos como comprado
+
         servidor.createContext("/api/comprar", requisicao -> {
             try {
                 if (!requisicao.getRequestMethod().equals("POST")) {
@@ -176,6 +178,80 @@ public class Servidor {
                 responder(requisicao, 400);
             }
         });
+
+
+        servidor.createContext("/", requisicao -> {
+            try {
+                if (!requisicao.getRequestMethod().equals("GET")) {
+                    requisicao.sendResponseHeaders(405, -1);
+                    requisicao.close();
+                    return;
+                }
+
+                Path pastaFront = Path.of("FRONT")
+                        .toAbsolutePath()
+                        .normalize();
+
+                String caminho = requisicao.getRequestURI().getPath();
+
+                if (caminho.equals("/")) {
+                    caminho = "/index.html";
+                }
+
+                Path arquivo = pastaFront.resolve(caminho.substring(1))
+                        .normalize();
+
+
+                if (!arquivo.startsWith(pastaFront) ||
+                        !Files.exists(arquivo) ||
+                        Files.isDirectory(arquivo)) {
+
+                    requisicao.sendResponseHeaders(404, -1);
+                    requisicao.close();
+                    return;
+                }
+
+                byte[] conteudo = Files.readAllBytes(arquivo);
+
+                String tipo = "application/octet-stream";
+
+                if (caminho.endsWith(".html")) {
+                    tipo = "text/html; charset=UTF-8";
+                } else if (caminho.endsWith(".css")) {
+                    tipo = "text/css; charset=UTF-8";
+                } else if (caminho.endsWith(".js")) {
+                    tipo = "application/javascript; charset=UTF-8";
+                } else if (caminho.endsWith(".png")) {
+                    tipo = "image/png";
+                } else if (caminho.endsWith(".jpg") ||
+                        caminho.endsWith(".jpeg")) {
+                    tipo = "image/jpeg";
+                } else if (caminho.endsWith(".svg")) {
+                    tipo = "image/svg+xml";
+                }
+
+                requisicao.getResponseHeaders()
+                        .set("Content-Type", tipo);
+
+                requisicao.sendResponseHeaders(200, conteudo.length);
+
+                try (OutputStream saida = requisicao.getResponseBody()) {
+                    saida.write(conteudo);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                try {
+                    requisicao.sendResponseHeaders(500, -1);
+                } catch (IOException erro) {
+                    erro.printStackTrace();
+                }
+
+                requisicao.close();
+            }
+        });
+
 
         servidor.start();
         System.out.println("Servidor rodando em http://localhost:8080");

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class LimiteDAO {
 
-    // pega o último limite cadastrado
+
     public double buscarLimite() throws SQLException {
         String sql = "SELECT valor_limite FROM limite_orcamento ORDER BY id DESC LIMIT 1";
 
